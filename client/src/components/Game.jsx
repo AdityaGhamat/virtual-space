@@ -21,7 +21,7 @@ const Game = () => {
       gameRef.current = null;
     };
   }, []);
-  return <div className="phaser-container">Game</div>;
+  return <div className="phaser-container"></div>;
 };
 
 export default Game;

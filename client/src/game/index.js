@@ -13,6 +13,7 @@ import {
 } from "./constants/player.js";
 import { serverLink } from "./constants/server.js";
 import { animateMovement } from "./utils/animation.js";
+import { getPlayerRoom } from "./utils/getPlayerRoom.js";
 const player = {};
 const otherPlayer = {};
 let socket;
@@ -90,6 +91,16 @@ export class MyGame extends Phaser.Scene {
       player.movedLastFrame = false;
     }
     animateMovement(pressedKeys, player.sprite);
+    const room = getPlayerRoom(player.sprite.x, player.sprite.y);
+    if (room && room.name !== player.sprite.currentRoom) {
+      player.sprite.currentRoom = room.name;
+      console.log(`Player entered room: ${room.name}`);
+      socket.emit("playerRoomChanged", {
+        room: room.name,
+        x: player.sprite.x,
+        y: player.sprite.y,
+      });
+    }
 
     if (otherPlayer.moving && !otherPlayer.sprite.anims.isPlaying) {
       otherPlayer.sprite.play("running");

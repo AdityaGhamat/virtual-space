@@ -21,7 +21,16 @@ io.on("connection", (socket) => {
   socket.on("moveEnd", () => {
     socket.broadcast.emit("moveEnd");
   });
+  socket.on("playerRoomChanged", ({ room, x, y }) => {
+    console.log(`player ${socket.id} entered in ${room}`);
+    socket.broadcast.emit("playerEnteredRoom", {
+      id: socket.id,
+      room: room,
+      x,
+      y,
+    });
+  });
 });
-server.listen(port, () => {
-  console.log(`server is listening on http://localhost:${port}`);
+server.listen(port, "0.0.0.0", () => {
+  console.log(`server is listening on http://192.168.0.104:${port}`);
 });
