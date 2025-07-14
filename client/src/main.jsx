@@ -4,11 +4,15 @@ import "./index.css";
 import App from "./App.jsx";
 import SocketProvider from "./context/SocketContext.jsx";
 import CameraFeedContextProvider from "./context/CameraFeedProvider.jsx";
-
+import withProviders from "./utils/AppWithProvider.jsx";
+import { BrowserRouter } from "react-router-dom";
+const AppWithProviders = withProviders(
+  BrowserRouter,
+  SocketProvider,
+  CameraFeedContextProvider
+);
 createRoot(document.getElementById("root")).render(
-  <SocketProvider>
-    <CameraFeedContextProvider>
-      <App />
-    </CameraFeedContextProvider>
-  </SocketProvider>
+  <AppWithProviders>
+    <App />
+  </AppWithProviders>
 );

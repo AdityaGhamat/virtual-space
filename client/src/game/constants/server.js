@@ -1,1 +1,1 @@
-export const serverLink = "http://192.168.0.104:8080";
+export const serverLink = "http://localhost:8080";

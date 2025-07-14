@@ -1,5 +1,6 @@
 import { PLAYER_SPEEED, SHIP_HEIGHT, SHIP_WIDTH } from "../constants/player.js";
 import { mapBounds } from "./mapBounds.js";
+
 export const isWithinBoundry = (x, y) => {
   return !mapBounds[y] ? true : !mapBounds[y].includes(x);
 };

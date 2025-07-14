@@ -10,6 +10,6 @@ export function getPlayerRoom(playerX, playerY) {
     ) {
       return room;
     }
-    return null;
   }
+  return null;
 }
