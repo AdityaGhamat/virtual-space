@@ -19,6 +19,8 @@ const player = { sprite: null, movedLastFrame: false }; // Local player
 const otherPlayers = new Map(); // Store all other players
 let socket;
 let pressedKeys = [];
+const roomId = window.location.pathname.split("/").pop(); // "/room/abc123" → "abc123"
+console.log(roomId);
 
 export class MyGame extends Phaser.Scene {
   constructor() {
@@ -30,6 +32,7 @@ export class MyGame extends Phaser.Scene {
       reconnection: true,
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
+      query: { roomId },
     });
     socket.on("connect_error", (error) => {
       console.error("Socket.IO connection error:", error);
@@ -60,6 +63,7 @@ export class MyGame extends Phaser.Scene {
       x: PLAYER_START_X,
       y: PLAYER_START_Y,
       room: initialRoom ? initialRoom.name : null,
+      roomId: roomId,
     });
 
     this.anims.create({

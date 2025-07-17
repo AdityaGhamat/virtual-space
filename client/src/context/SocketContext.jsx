@@ -1,22 +1,24 @@
-import { createContext, useContext, useEffect, useRef } from "react";
-import { Socket, io } from "socket.io-client";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { io } from "socket.io-client";
 import { serverLink } from "../game/constants/server";
+
 const SocketContext = createContext(null);
 
 export default function SocketProvider({ children }) {
-  const socketRef = useRef(null);
+  const [socket, setSocket] = useState(null);
+
   useEffect(() => {
-    socketRef.current = io(serverLink);
+    const newSocket = io(serverLink);
+    setSocket(newSocket);
+
     return () => {
-      socketRef.current.disconnect();
+      newSocket.disconnect();
     };
   }, []);
+
   return (
-    <SocketContext.Provider value={socketRef.current}>
-      {children}
-    </SocketContext.Provider>
+    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
   );
 }
-export const useSocket = () => useContext(SocketContext);
 
-export const socket = io(serverLink);
+export const useSocket = () => useContext(SocketContext);

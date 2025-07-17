@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { MyGame } from "../game/index";
+
 const Game = () => {
   const gameRef = useRef(null);
   useEffect(() => {

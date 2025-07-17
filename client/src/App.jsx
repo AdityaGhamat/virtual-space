@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Game from "./components/Game";
-import CameraFrame from "./components/CameraFrame";
-
+import { Routes, Route } from "react-router-dom";
+import EntryPage from "./pages/EntryPage";
+import HeroPage from "./pages/HeroPage";
 const App = () => {
-  const [insideRoom, setInsideRoom] = useState(false);
   return (
-    <div className="relative">
-      <Game />
-      <CameraFrame />
-    </div>
+    <Routes>
+      <Route path="/" element={<EntryPage />} />
+      <Route path="/room/:roomId" element={<HeroPage />} />
+    </Routes>
   );
 };
 
